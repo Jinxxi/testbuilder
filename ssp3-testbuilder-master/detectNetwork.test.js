@@ -196,7 +196,27 @@ describe('Maestro', function() {
 });
 
 
-describe('should support China UnionPay')
+describe('should support China UnionPay', function(){
+  var expect = chai.expect;
+  var lengths = [16, 17, 18, 19];
+
+  for (var i = 0; i < lengths.length; i++) {
+    var len = lengths[i];
+
+    for(var prefix = 622126; prefix <= 622925; prefix++){
+    
+      (function (prefix, length) {
+        it('has a prefix of ' + prefix + 'and a length of '+ len, function(){
+ 
+         expect(detectNetwork(prefix + '7890123456')).to.equal('China UnionPay')
+         expect(detectNetwork(prefix + '78901234567')).to.equal('China UnionPay')
+         expect(detectNetwork(prefix + '789012345678')).to.equal('China UnionPay')
+         expect(detectNetwork(prefix + '7890123456789')).to.equal('China UnionPay')
+        });
+      })(prefix)
+    } 
+   }
+  })
 //China UnionPay always has a prefix of 622126-622925, 624-626, or 6282-6288 and a length of 16-19.
  
 
