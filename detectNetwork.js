@@ -16,6 +16,8 @@ var detectNetwork = function(cardNumber) {
   isExpressLength = false;
   isVisaLength = false;
   isMasterCardLength = false;
+  isDiscoverLength = false;
+  isMaestroLength = false;
 
   if (cardNumber.length === 14) {
     isClubLength = true;
@@ -48,8 +50,32 @@ var detectNetwork = function(cardNumber) {
   if (isMasterCardLength && cardNumber[0] === '5' && (cardNumber[1] === '1' || cardNumber[1] === '2' || cardNumber[1] === '3' || cardNumber[1] === '4' || cardNumber[1] === '5')) {
     network = "MasterCard";
   }
+  
+  if (cardNumber.length === 16 || cardNumber.length === 19) {
+    isDiscoverLength = true;
+  }
 
-  return network;
+  if (isDiscoverLength && cardNumber[0] === '6'  &&  cardNumber[1] === '5') {
+    network = 'Discover';
+  }
+ 
+  if (isDiscoverLength && cardNumber[0] === '6' && cardNumber[1] === '0' && cardNumber[2] === '1' && cardNumber[3] === '1') {
+    network = 'Discover';
+  }
+
+  if (isDiscoverLength && cardNumber[0] === '6' && cardNumber[1] === '4' && cardNumber[2] === '4' && cardNumber[3] === '-' && cardNumber[4] === '6' && cardNumber[5] === '4' && cardNumber[6] === '9') {
+    network = 'Discover';
+  }
+
+  if (cardNumber.length === 12 || cardNumber.length === 13 || cardNumber.length === 14 || cardNumber.length === 15 || cardNumber.length === 16 || cardNumber.length === 17 || cardNumber.length === 18 || cardNumber.length === 19) {
+    isMaestroLength = true;
+  }
+
+  if (isMaestroLength && (cardNumber[0] === '5' || cardNumber[0] === '6') && (cardNumber[1] === '0' || cardNumber[1] === '3') && (cardNumber[2] === '1' || cardNumber[2] === '2' || cardNumber[2] === '0') && (cardNumber[3] === '8' || cardNumber[3] === '0' || cardNumber[3] === '4')) {
+    network = 'Maestro';
+  }
+
+   return network;
  
  // The American Express network always starts with a 34 or 37 and is 15 digits long
 
