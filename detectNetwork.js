@@ -49,7 +49,7 @@ var detectNetwork = function(cardNumber) {
     var prefix2 = cardNumber.substring(0, 1);
     var prefix3 = cardNumber.substring(0, 3);
     var prefix4 = cardNumber.substring(0, 4);
-    var prefix5 = cardNumber.substring(0, 7);
+    var prefix5 = cardNumber.substring(0, 6);
 
     if (isClubLength && (prefix1 === '38' || prefix1 === '39')) {
         network = "Diner's Club";
@@ -73,8 +73,11 @@ var detectNetwork = function(cardNumber) {
 	network = 'China UnionPay';
    } else if (isChinaLength && (Number(prefix5) > 622125 && Number(prefix5) < 622926)) {
 	network = 'China UnionPay';
-   } else if (isSwitchLength && (prefix4 === '4903' || prefix4 === '4905' || prefix4 === '4911' || prefix4 === '4936 || prefix5 === '564182' || prefix5 === '633110' || prefix4 === '6333' || prefix3 === '6759')) {
+   } else if (isSwitchLength && (prefix4 === '4903' || prefix4 === '4905' || prefix4 === '4911' || prefix4 === '4936' || prefix5 === '564182' || prefix5 === '633110' || prefix4 === '6333' || prefix4 === '6759')) {
 	network = 'Switch';
   } else {
     return network;
-  };
+  }
+ 
+  return network;
+};
